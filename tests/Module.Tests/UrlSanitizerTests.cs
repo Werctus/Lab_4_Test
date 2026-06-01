@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework
+using NUnit.Framework;
 using UrlSanitizer.Interfaces;
 using UrlSanitizer.Implementations.GenCode1;
 
