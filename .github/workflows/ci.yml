@@ -1,0 +1,30 @@
+name: .NET CI Pipeline (NUnit)
+
+on:
+  push:
+    branches: [ "main", "ai-version-1", "ai-version-2", "ai-version-3" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Ручной запуск процесса
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x # Укажи версию, которая стоит у тебя (скорее всего 8.0)
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Test
+      # Запуск тестов без пересборки с выводом результатов
+      run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"

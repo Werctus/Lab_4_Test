@@ -1,0 +1,47 @@
+name: Comparative Test Report
+
+on:
+  workflow_dispatch: # Запуск только вручную через интерфейс GitHub
+
+jobs:
+  test-ai-v1:
+    name: Test DeepSeek (v1)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ai-version-1 # Принудительный выбор ветки первой модели
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet restore
+    - run: dotnet build --no-restore
+    - run: dotnet test --no-build --verbosity normal
+
+  test-ai-v2:
+    name: Test GigaChat (v2)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ai-version-2 # Принудительный выбор ветки второй модели
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet restore
+    - run: dotnet build --no-restore
+    - run: dotnet test --no-build --verbosity normal
+
+  test-ai-v3:
+    name: Test Mistral (v3)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ai-version-3 # Принудительный выбор ветки третьей модели
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - run: dotnet restore
+    - run: dotnet build --no-restore
+    - run: dotnet test --no-build --verbosity normal
