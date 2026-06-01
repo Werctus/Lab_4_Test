@@ -1,0 +1,11 @@
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\bin\Debug\net9.0\Module.Core.deps.json
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\bin\Debug\net9.0\Module.Core.dll
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\bin\Debug\net9.0\Module.Core.pdb
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.AssemblyInfoInputs.cache
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.AssemblyInfo.cs
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.csproj.CoreCompileInputs.cache
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.dll
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\refint\Module.Core.dll
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\Module.Core.pdb
+E:\МИ ВлГУ\3 Курс\ТПО\Lab_4\src\Module.Core\obj\Debug\net9.0\ref\Module.Core.dll

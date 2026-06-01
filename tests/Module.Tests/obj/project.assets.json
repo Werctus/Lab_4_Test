@@ -346,6 +346,16 @@
             "related": ".xml"
           }
         }
+      },
+      "Module.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Module.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Module.Core.dll": {}
+        }
       }
     }
   },
@@ -793,11 +803,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Module.Core/1.0.0": {
+      "type": "project",
+      "path": "../../src/Module.Core/Module.Core.csproj",
+      "msbuildProject": "../../src/Module.Core/Module.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "Microsoft.NET.Test.Sdk >= 17.12.0",
+      "Module.Core >= 1.0.0",
       "NUnit >= 4.2.2",
       "NUnit.Analyzers >= 4.4.0",
       "NUnit3TestAdapter >= 4.6.0",
@@ -830,7 +846,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\МИ ВлГУ\\3 Курс\\ТПО\\Lab_4\\src\\Module.Core\\Module.Core.csproj": {
+              "projectPath": "E:\\МИ ВлГУ\\3 Курс\\ТПО\\Lab_4\\src\\Module.Core\\Module.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
