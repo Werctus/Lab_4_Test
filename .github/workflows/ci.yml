@@ -1,30 +1,54 @@
-name: .NET CI Pipeline (NUnit)
+name: CI Generate & Run NUnit Tests
 
 on:
   push:
     branches: [ "main", "ai-version-1", "ai-version-2", "ai-version-3" ]
   pull_request:
     branches: [ "main" ]
-  workflow_dispatch: # Ручной запуск процесса
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
+  test-generation-and-execution:
     runs-on: ubuntu-latest
     steps:
+    # 1. Получение кода
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+    # 2. Настройка среды Python для генератора
+    - name: Setup Python
+      uses: actions/setup-python@v5
       with:
-        dotnet-version: 8.0.x # Укажи версию, которая стоит у тебя (скорее всего 8.0)
+        python-version: '3.11'
 
+    - name: Install dependencies
+      run: pip install pyyaml
+
+    # 3. Генерация тестов из спецификации
+    - name: Generate NUnit tests
+      run: python generator/gen_tests.py --config config.yaml
+
+    # 4. Настройка .NET SDK
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    # 5. Восстановление пакетов и сборка
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
       run: dotnet build --no-restore
 
-    - name: Test
-      # Запуск тестов без пересборки с выводом результатов
-      run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"
+    # 6. Запуск тестов (включая сгенерированные) с сохранением отчета
+    - name: Run Tests
+      run: dotnet test tests/Module.Tests/Module.Tests.csproj --no-build --logger "trx;LogFileName=test-results.trx" --verbosity normal
+
+    # 7. Сохранение результатов в артефакты GitHub
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: nunit-test-results-${{ github.ref_name }}
+        path: tests/**/TestResults/test-results.trx

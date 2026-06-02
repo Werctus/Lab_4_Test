@@ -1,0 +1,7 @@
+# config.yaml
+# Конфигурация генератора тестов
+
+target_language: csharp
+test_framework: nunit
+spec_path: spec/urlsanitizer.yaml
+output_dir: tests/Module.Tests
