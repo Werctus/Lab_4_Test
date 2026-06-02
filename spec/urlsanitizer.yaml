@@ -1,0 +1,67 @@
+# spec/urlsanitizer.yaml
+module: UrlSanitizer
+
+# Трассировка нефункциональных требований
+non_functional_requirements:
+  - id: NFR-1
+    desc: "Класс не должен зависеть от внешних библиотек, использовать только стандартные средства .NET"
+  - id: NFR-2
+    desc: "Методы должны быть устойчивы к граничным значениям (null, пустые строки)"
+
+methods:
+  - name: Sanitize
+    req_functional: ["1"]
+    req_non_functional: ["NFR-1", "NFR-2"]
+    signature: "string Sanitize(string url)"
+    pre: "url != null && !string.IsNullOrWhiteSpace(url) && IsValidFormat(url)"
+    post: "Возвращает нормализованный URL в нижнем регистре, без пробелов, фрагментов и utm-параметров. Добавляет https:// при необходимости."
+    equivalence_classes:
+      - case: "Валидный URL (базовый сценарий)"
+        inputs: ["https://example.com/page"]
+        expected: "https://example.com/page"
+      - case: "URL без протокола"
+        inputs: ["example.com/page"]
+        expected: "https://example.com/page"
+      - case: "URL с utm-параметрами"
+        inputs: ["https://example.com/?utm_source=google&id=123"]
+        expected: "https://example.com/?id=123"
+      - case: "Null (нарушение предусловия)"
+        inputs: [null]
+        expected: "ArgumentException"
+      - case: "Некорректный формат"
+        inputs: ["not_a_url"]
+        expected: "ArgumentException"
+
+  - name: IsValidUrl
+    req_functional: ["2"]
+    req_non_functional: ["NFR-1", "NFR-2"]
+    signature: "bool IsValidUrl(string url)"
+    pre: "true"
+    post: "Возвращает true для корректного URL, иначе false"
+    equivalence_classes:
+      - case: "Корректный HTTPS URL"
+        inputs: ["https://example.com"]
+        expected: "true"
+      - case: "Некорректная строка"
+        inputs: ["invalid_string"]
+        expected: "false"
+      - case: "Пустая строка"
+        inputs: [""]
+        expected: "false"
+
+  - name: ExtractDomain
+    req_functional: ["3"]
+    req_non_functional: ["NFR-1", "NFR-2"]
+    signature: "string ExtractDomain(string url)"
+    pre: "url != null && IsValidFormat(url)"
+    post: "Возвращает полное имя домена в нижнем регистре"
+    equivalence_classes:
+      - case: "Простой домен"
+        inputs: ["https://example.com/path"]
+        expected: "example.com"
+      - case: "Многоуровневый поддомен"
+        inputs: ["https://blog.sub.example.com"]
+        expected: "blog.sub.example.com"
+      - case: "Некорректный URL (нарушение предусловия)"
+        inputs: ["invalid"]
+        expected: "ArgumentException"
